@@ -5,30 +5,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>게시글 - Networker</title>
-    <link rel="stylesheet" href="../src/css/post.css">
+    <link rel="stylesheet" href="/src/css/post.css">
 </head>
 
 <body>
     <header>
         <div class="header-content">
-            <a href="networker.html" style="text-decoration: none;">
+            <a href="/" style="text-decoration: none;">
                 <span class="logo">
-                    <img src="../src/assets/logo.png">
+                    <img src="/src/assets/logo.png">
                     <h1>Networker</h1>
                 </span>
             </a>
             <div class="menu">
-                <a href="networker.html">홈</a>
-                <a href="news.html">정보</a>
-                <a href="board.html">자유게시판</a>
-                <a href="store.html">스토어</a>
-                <a href="lawsupport.html">법률지원</a>
+                <a href="/">홈</a>
+                <a href="/views/news.html">정보</a>
+                <a href="/post/list">자유게시판</a>
+                <a href="/views/store.html">스토어</a>
+                <a href="/lawsupport/main">법률지원</a>
             </div>
             <div class="auth-buttons">
-                <a href="login.html">로그인</a>
-                <a href="signup.html">회원가입</a>
+                <a href="/views/login.html">로그인</a>
+                <a href="/views/signup.html">회원가입</a>
                 <div class="profile-icon">
-                    <a href="profile.html"><img src="../src/assets/profile.png" alt="Profile"></a>
+                    <a href="/views/profile.html"><img src="/src/assets/profile.png" alt="Profile"></a>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
             <div class="content" id="post-info">
 				<h1 th:text="${post.subject}"></h1>
 			</div>
-            <div class="center-align" th:text="${question.content}">				
+            <div class="center-align" th:text="${post.content}">				
                 <!-- 
                 추천 개수 표시 하려면 이부분 수정해야함.
                 <p id="recommend-count"></p> 
@@ -55,10 +55,13 @@
 					<li th:each="comment : ${post.commentList}" th:text="${comment.content}"></li>
 				</ul>
 			</div>
-            <form class="comment-write" th:action="@{|/comment/create/${question.id}|}" method="post">
+            <form class="comment-write" th:action="@{|/comment/create/${post.id}|}" method="post" th:object="${commentForm}">
                 <div class="user-id" id="user-info">임시 아이디</div>
                 <div class="input-container">
-                    <textarea name="content" id="comment-input" class="text-input"></textarea>
+					<div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}"th:each="err : ${#fields.allErrors()}" th:text="${err}" ></div>
+                    <textarea name="content" id="comment-input" class="text-input" th:field="*{content}">
+					</textarea>
+					
 					<input type="submit" value="작성">
                     <button id="comment-button" class="text-button" type="submit">작성</button>
                 </div>
@@ -70,14 +73,14 @@
         <div class="footer-container">
             <ul class="footer-btn">
                 <li><a href="#">이용약관</a></li>
-                <li><a href="privacy_Policy.html" style="font-weight: bold;">개인정보처리방침</a></li>
+                <li><a href="/views/Privacy_Policy.html" style="font-weight: bold;">개인정보처리방침</a></li>
                 <li><a href="#">문의/신고</a></li>
                 <li><a href="#">광고안내</a></li>
             </ul>
         </div>
     </footer>
 
-    <script src="../src/js/post.js"></script>
+    <script src="/src/js/post.js"></script>
 </body>
 
 </html>

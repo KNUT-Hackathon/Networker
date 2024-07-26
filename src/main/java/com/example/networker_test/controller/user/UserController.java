@@ -65,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping("/board")
-    public ResponseEntity<Map<String, Boolean>> CheckSession(HttpSession session){
+    public ResponseEntity<Map<String, Object>> CheckSession(HttpSession session){
         return userService.checkSession(session);
     }
 

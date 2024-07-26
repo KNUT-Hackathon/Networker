@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:mysql://database-1.ct2kw6s88itk.ap-northeast-2.rds.amazonaws.com:3306/Networker  
+    url: jdbc:mysql://43.203.238.26:3306/networker  
     username: root
     password: testdbpw
 #   driver-class-name: com.mysql.cj.jdbc.Driver
@@ -39,3 +39,4 @@ spring:
     #encoding: UTF-8
     #servlet:
     #  content-type: text/html
+ 

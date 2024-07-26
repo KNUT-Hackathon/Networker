@@ -27,11 +27,10 @@ public class User {
 
     protected User(){}
 
-
     public User(String nickname, String email, String password, String nationality) {
         if (nickname == null || email == null || password == null || nationality == null ||
-                nickname.isBlank() || email.isBlank() || password.isBlank() || nationality.isBlank()){
-            throw new IllegalArgumentException(String.format("잘못 입력하셨습니다."));
+                nickname.isBlank() || email.isBlank() || password.isBlank() || nationality.isBlank()) {
+            throw new IllegalArgumentException("잘못 입력하셨습니다.");
         }
         this.nickname = nickname;
         this.email = email;
@@ -39,4 +38,7 @@ public class User {
         this.nationality = nationality;
     }
 
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }
