@@ -1,10 +1,139 @@
 <!DOCTYPE html>
-<!--template의 networker.html로 리다이렉트하는 파일-->
-<html lang="en">
+<html lang="ko">
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="0; url=/">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Networker</title>
+  <link rel="stylesheet" href="../src/css/network.css">
+  <script src="../src/js/networker.js" defer></script>
+  <script src="../src/js/fetchNewsTitles.js" defer></script>
+  <script type="text/javascript" src="../src/js/network.js" defer></script>
+
 </head>
 <body>
+  <header>
+    <div class="header-content">
+      <a href="networker.html" style="text-decoration: none">
+        <span class="logo">
+          <img src="../src/assets/logo.png" />
+          <h1>Networker</h1>
+        </span>
+      </a>
+      <div class="menu">
+        <a href="networker.html">홈</a>
+        <a href="news.html">정보</a>
+        <a href="board.html">자유게시판</a>
+        <a href="store.html">스토어</a>
+        <a href="lawsupport.html">법률지원</a>
+      </div>
+      <div class="auth-buttons">
+        <a href="login.html">로그인</a>
+        <a href="signup.html">회원가입</a>
+        <div class="profile-icon">
+          <a href="profile.html"><img src="../src/assets/profile.png" alt="Profile"/></a>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="main-banner">
+      <div class="container">
+        <div class="slidebox">
+          <input type="radio" name="slide" id="slide01" checked>
+          <input type="radio" name="slide" id="slide02">
+          <input type="radio" name="slide" id="slide03">
+          <input type="radio" name="slide" id="slide04">
+
+          <ul class="slidelist">
+            <li class="slideitem">
+              <div>
+                <label for="slide04" class="left"></label>
+                <label for="slide02" class="right"></label>
+                <a href="#"><img src="../src/assets/main1.webp"></a>
+              </div>
+            </li>
+            <li class="slideitem">
+              <div>
+                <label for="slide01" class="left"></label>
+                <label for="slide03" class="right"></label>
+                <a href="#"><img src="../src/assets/banner2.png"></a>
+              </div>
+            </li>
+            <li class="slideitem">
+              <div>
+                <label for="slide02" class="left"></label>
+                <label for="slide04" class="right"></label>
+                <a href="#"><img src="../src/assets/banner3.png"></a>
+              </div>
+            </li>
+            <li class="slideitem">
+              <div>
+                <label for="slide03" class="left"></label>
+                <label for="slide01" class="right"></label>
+                <a href="#"><img src="../src/assets/banner4.png"></a>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <div class="board-sections">
+      <div class="board-row">
+        <div class="board-item">
+          <div class="board-header">
+            <h3>자유게시판</h3>
+            <button class="more-btn" onclick="location.href='board.html';">더보기</button>
+          </div>
+          <ul class="board-content">
+            <li>자유게시판 글 1</li>
+            <li>자유게시판 글 2</li>
+          </ul>
+        </div>
+        <div class="board-item">
+          <div class="board-header">
+            <h3>정보</h3>
+            <button class="more-btn" onclick="location.href='news.html';">더보기</button>
+          </div>
+          <ul class="board-content board-content-info">
+            <!-- 이곳에 정보 글이 동적으로 추가될 것입니다. -->
+          </ul>
+        </div>
+      </div>
+      <div class="board-row">
+        <div class="board-item">
+          <div class="board-header">
+            <h3>법률지원</h3>
+            <button class="more-btn" onclick="location.href='lawsupport.html';">더보기</button>
+          </div>
+          <ul class="board-content" id="legal-support-latest">
+            <li>법률지원 1</li>
+            <li>법률지원 2</li>
+          </ul>
+        </div>
+        <div class="board-item">
+          <div class="board-header">
+            <h3>스토어</h3>
+            <button class="more-btn" onclick="location.href='store.html';">더보기</button>
+          </div>
+          <ul class="board-content">
+            <li>스토어 1</li>
+            <li>스토어 2</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-container">
+      <ul class="footer-btn">
+        <li><a href="#">이용약관</a></li>
+        <li><a href="privacy_Policy.html" style="font-weight: bold">개인정보처리방침</a></li>
+        <li><a href="#">문의/신고</a></li>
+        <li><a href="#">광고안내</a></li>
+      </ul>
+    </div>
+  </footer>
 </body>
 </html>

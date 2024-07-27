@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function () {
             // 로그인 성공시 성공 메세지 띄우고 홈 화면으로 이동
             if (data.success) {
                 alert(data.message);
-                window.location.href = '/';
+                window.location.href = 'networker.html';
             } else { // 실패시 실패 메세지 알림
                 alert(data.message);
             }

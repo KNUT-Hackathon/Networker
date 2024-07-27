@@ -61,7 +61,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     // 로그아웃 성공 시 쿠키 삭제 및 로그인 페이지로 리디렉션
                     document.cookie = 'authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
                     alert('로그아웃 되었습니다.');
-                    window.location.href = '/';
+                    window.location.href = 'networker.html';
                 } else {
                     const errorData = await response.json();
                     alert(errorData.message || '로그아웃에 실패했습니다.');

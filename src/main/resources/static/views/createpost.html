@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://kit.fontawesome.com/b3f3cec821.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="../src/css/lawsupport.css">
+    <link rel="stylesheet" href="../src/css/createpost.css">
     <title>네트워커</title>
 </head>
 
@@ -21,7 +21,7 @@
             <div class="menu">
                 <a href="/">홈</a>
                 <a href="/views/news.html">정보</a>
-                <a href="/post/list">자유게시판</a>
+                <a href="post/list">자유게시판</a>
                 <a href="/views/store.html">스토어</a>
                 <a href="/lawsupport/main">법률지원</a>
             </div>
@@ -36,43 +36,17 @@
     </header>
 
     <main>
-        <table class="community">
-            <thead>
-                <tr>
-                    <th>번호</th>
-                    <th>제목</th>
-                    <th>글쓴이</th>
-                    <th>작성일</th>
-                    <th>조회수</th>
-                    <th>추천</th>
-                </tr>
-            </thead>
-            <tbody id="post-list"></tbody>
-        </table>
-        <div class="bottom-box">
-            <div class="bottom-btn-box">
-                <button>글쓰기</button>
-                <button>추천글</button>
-                <button id="post-button">글쓰기</button>
+        <form class="create-post" action="/데이터를처리할URL" method="post">
+            <h2 class="page-title">글쓰기</h2>
+            <h3>제목</h3>
+            <input class="post-title" type="text" name="title" maxlength="30">
+            <h3>내용</h3>
+            <textarea class="post-body" name="body"></textarea>
+            <div class="btn-container">
+                <button type="submit" id="post-button" class="btn-post">등록</button>
+                <button type="button" id="cancel-button" class="btn-cancel">취소</button>
             </div>
-
-            <ul id="pagination"></ul>
-
-            <div class="bottom-search-box">
-                <div class="dropdown">
-                    <select>
-                        <option>제목+내용</option>
-                        <option>제목</option>
-                        <option>내용</option>
-                        <option>글쓴이</option>
-                    </select>
-                </div>
-                <form action="/URL데이터를 처리할 URL" method="get">
-                    <input class="search-input" type="text" name="query" placeholder="검색어 입력">
-                    <button class="search-btn" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
-                </form>
-            </div>
-        </div>
+        </form>
     </main>
 
     <footer>
@@ -86,7 +60,7 @@
         </div>
     </footer>
 
-    <script type="text/javascript" src="../src/js/lawsupport.js"></script>
+    <script type="text/javascript" src="../src/js/createpost.js"></script>
 </body>
 
 </html>
