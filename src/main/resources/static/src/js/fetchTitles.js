@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // 제목을 <li> 요소로 변환하여 삽입
     infoList.innerHTML = newsItems.map(item => `<li><a href="${item.url}" target="_blank">${item.title}</a></li>`).join('');
-
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const apiEndpoint = 'http://localhost:3000/api/posts/latest'; // Node.js 서버의 API 엔드포인트
+document.addEventListener("DOMContentLoaded", function() {
+    const apiEndpoint = 'http://knutlion-networker.store/post/list';
     const boardContent = document.querySelector('.board-content');
 
     fetch(apiEndpoint)
@@ -19,22 +18,31 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!response.ok) {
                 throw new Error('네트워크 응답에 문제가 있습니다.');
             }
-            return response.json();
+            return response.text();
         })
-        .then(posts => {
-            // 기존 내용을 초기화
+        .then(html => {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(html, 'text/html');
+
+            const posts = [];
+            const rows = doc.querySelectorAll('tr'); // 예: <tr> 요소로 게시물 목록이 구성된 경우
+
+            rows.forEach(row => {
+                const post = {};
+                const cells = row.querySelectorAll('td'); // 예: <td> 요소로 게시물 정보가 구성된 경우
+
+                if (cells.length > 0) {
+                    post.title = cells[1].innerText; // 두 번째 <td>에 게시물 제목이 있다고 가정
+                    post.date = cells[2].innerText;  // 세 번째 <td>에 작성일이 있다고 가정
+                    posts.push(post);
+                }
+            });
+
             boardContent.innerHTML = '';
 
-            // 게시물 리스트를 생성하여 DOM에 추가
-            posts.forEach(post => {
+            posts.slice(0, 7).forEach(post => {
                 const listItem = document.createElement('li');
-                const postLink = document.createElement('a');
-
-                // 링크 및 텍스트 설정
-                postLink.href = `/post/detail/${post.id}`;
-                postLink.textContent = `${post.subject} - ${formatDate(post.createDate)}`;
-
-                listItem.appendChild(postLink);
+                listItem.textContent = `${post.title} - ${post.date}`;
                 boardContent.appendChild(listItem);
             });
         })
@@ -49,3 +57,4 @@ function formatDate(dateString) {
     const options = { year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' };
     return new Date(dateString).toLocaleDateString('ko-KR', options);
 }
+

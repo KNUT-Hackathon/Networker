@@ -3,7 +3,6 @@ package com.example.networker_test.controller.order;
 import com.example.networker_test.dto.order.orderinfo.OrderInfoDTO;
 import com.example.networker_test.dto.order.paymentinfo.PaymentInfoDTO;
 import com.example.networker_test.dto.order.request.OrderData;
-import com.example.networker_test.dto.order.request.OrderRequest;
 import com.example.networker_test.service.order.OrderService;
 import org.json.simple.JSONObject;
 import org.springframework.http.ResponseEntity;

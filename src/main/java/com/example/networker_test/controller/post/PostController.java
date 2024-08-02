@@ -36,17 +36,11 @@ import java.util.List;
 @RequiredArgsConstructor
 
 public class PostController {
-	@Autowired
 	private final PostService postService;
 	private final CommentService commentService;
 	private final UserService userService;
 	private final CommonUtil commonUtil;
 	private final PostRecommendationService postRecommendationService;
-
-	@GetMapping("/post/latest")
-   	public List<Post> getLatestPosts() {
-        	return postService.findLatestPosts();
-    	}
 
 	@Value("${file.upload-dir}")
 	private String uploadDir;

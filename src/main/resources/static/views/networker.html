@@ -10,24 +10,6 @@
     <script src="../src/js/fetchTitles.js" defer></script>
     <script type="text/javascript" src="../src/js/networker.js" defer></script>
     <script src="../src/js/lang.js" defer></script>
-
-    <script>
-    document.addEventListener("DOMContentLoaded", function() {
-        fetch('http://knutlion-networker.store/post/latest')
-            .then(response => response.json())
-            .then(data => {
-                const boardContent = document.querySelector('.board-content');
-                boardContent.innerHTML = '';
-                data.forEach(post => {
-                    const listItem = document.createElement('li');
-                    listItem.textContent = `${post.subject} - ${new Date(post.createDate).toLocaleDateString()}`;
-                    boardContent.appendChild(listItem);
-                });
-            })
-            .catch(error => console.error('Error fetching latest posts:', error));
-    	});
-	</script>
-
   </head>
   <body>
     <header>

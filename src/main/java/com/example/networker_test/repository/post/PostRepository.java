@@ -18,7 +18,4 @@ public interface PostRepository extends JpaRepository<Post, Integer> {
     Page<Post> findAll(Pageable pageable);
 
     Page<Post> findAll(Specification<Post> spec, Pageable pageable);
-    
-    @Query(value = "SELECT * FROM post ORDER BY create_date DESC LIMIT 2", nativeQuery = true)
-    List<Post> findTop2ByOrderByCreateDateDesc();
 }
