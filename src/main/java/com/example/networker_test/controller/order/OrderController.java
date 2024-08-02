@@ -6,6 +6,7 @@ import com.example.networker_test.dto.order.paymentinfo.PaymentInfoDTO;
 import com.example.networker_test.dto.order.request.OrderRequest;
 import com.example.networker_test.service.order.OrderService;
 import org.json.simple.JSONObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -39,11 +40,18 @@ public class OrderController {
         return orderService.getPaymentInfo(orderId);
     }
 
-    @GetMapping("/orderinfo")
-    public ResponseEntity<List<UserOrderInfoDTO>> getUserOrderInfo(Authentication authentication) {
-        String userId = authentication.getName();
-        List<UserOrderInfoDTO> orders = orderService.getUserOrdersByUserId(userId);
-        return ResponseEntity.ok(orders);
+    // POST 요청을 처리하도록 메서드 수정
+    @PostMapping("/orderinfo")
+    public ResponseEntity<?> getOrderInfo(@RequestBody Map<String, String> request) {
+        String userEmail = request.get("userEmail");
+
+        if (userEmail != null && !userEmail.isEmpty()) {
+            // userEmail을 사용하여 주문 정보 가져오기
+            List<UserOrderInfoDTO> orders = orderService.getUserOrdersByUserId(userEmail);
+            return ResponseEntity.ok(orders);
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("User email is required");
+        }
     }
 
 }

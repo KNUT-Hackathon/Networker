@@ -1,6 +1,8 @@
 // orderinfo.js
+let userEmail = '';
+
 document.addEventListener('DOMContentLoaded', function() {
-    // 로그인 상태 확인 함수(로그인 여부에 따라 헤더 요소 변경)
+    // 유저 아이디(이메일) 정보 가져오기
     const checkLoginStatus = () => {
         fetch('/board', {
             method: 'GET',
@@ -8,8 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
         })
             .then(response => response.json())
             .then(data => {
-                if (!data.loggedIn) {
-                    // 비 로그인 상태
+                if (data.loggedIn) {
+                    // 유저 이메일(아이디) 저장
+                    userEmail = data.userEmail;
+                }
+                else {  // 비 로그인 상태
                     window.alert("로그인이 필요합니다.");
                     window.location.href = 'login.html';
                 }
@@ -25,7 +30,13 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function fetchOrders() {
-    fetch('/orderinfo')
+    fetch('/orderinfo', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(userEmail)
+    })
         .then(response => response.json())
         .then(data => {
             const emptyList = document.querySelector('.empty-list');
