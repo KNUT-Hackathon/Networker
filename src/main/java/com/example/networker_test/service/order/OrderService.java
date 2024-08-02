@@ -6,6 +6,7 @@ import com.example.networker_test.domain.order.PaymentInfo;
 import com.example.networker_test.domain.order.ShippingInfo;
 import com.example.networker_test.dto.order.cartItem.CartItemsDTO;
 import com.example.networker_test.dto.order.orderinfo.OrderInfoDTO;
+import com.example.networker_test.dto.order.orderinfo.UserOrderInfoDTO;
 import com.example.networker_test.dto.order.paymentinfo.PaymentInfoDTO;
 
 import com.example.networker_test.dto.order.request.OrderRequest;
@@ -31,6 +32,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -47,6 +49,39 @@ public class OrderService {
         this.shippingInfoRepository = shippingInfoRepository;
         this.paymentInfoRepository = paymentInfoRepository;
         this.cartItemsRepository = cartItemsRepository;
+    }
+
+
+    public List<UserOrderInfoDTO> getUserOrdersByUserId(String userid) {
+        List<OrderInfo> orders = orderInfoRepository.findByUserid(userid);
+        return orders.stream().map(this::convertToUserOrderDTO).collect(Collectors.toList());
+    }
+
+    private UserOrderInfoDTO convertToUserOrderDTO(OrderInfo orderInfo) {
+        UserOrderInfoDTO dto = new UserOrderInfoDTO();
+        dto.setOrderId(orderInfo.getOrderId());
+        dto.setCreatedAt(orderInfo.getCreatedAt());
+
+        // cartItems 가져오기
+        List<CartItems> cartItemsList = cartItemsRepository.findByOrderInfo(orderInfo);
+        if (!cartItemsList.isEmpty()) {
+            CartItems firstItem = cartItemsList.get(0);
+            dto.setImage(firstItem.getProductImage());
+            dto.setProductName(firstItem.getProductName());
+        }
+
+        dto.setCount(cartItemsList.size());
+
+        // PaymentInfo에서 총 결제 금액 가져오기
+        PaymentInfo paymentInfo = paymentInfoRepository.findByOrderInfo(orderInfo);
+        if (paymentInfo != null) {
+            // BigDecimal to int 변환 (주의: 소수점 이하의 값이 있을 경우 데이터 손실 가능)
+            dto.setTotalAmount(paymentInfo.getTotalAmount().intValue());
+        } else {
+            dto.setTotalAmount(0); // paymentInfo가 없을 경우 기본값 설정
+        }
+
+        return dto;
     }
 
     public ResponseEntity<JSONObject> confirmPayment(@RequestBody String jsonBody) throws Exception {
